@@ -136,7 +136,6 @@ HypreLinearSolverConfig::boomerAMG_solver_config(const YAML::Node& node)
   get_if_present(node, "bamg_cycle_type", bamgCycleType_, bamgCycleType_);
   get_if_present(node, "bamg_relax_type", bamgRelaxType_, bamgRelaxType_);
   get_if_present(node, "bamg_relax_order", bamgRelaxOrder_, bamgRelaxOrder_);
-  get_if_present(node, "bamg_seq_threshold", bamgSeqThreshold_, bamgSeqThreshold_);
   get_if_present(node, "bamg_num_sweeps", bamgNumSweeps_, bamgNumSweeps_);
   get_if_present(node, "bamg_max_levels", bamgMaxLevels_, bamgMaxLevels_);
   get_if_present(
@@ -193,6 +192,7 @@ HypreLinearSolverConfig::boomerAMG_precond_config(const YAML::Node& node)
   get_if_present(node, "bamg_cycle_type", bamgCycleType_, bamgCycleType_);
   get_if_present(node, "bamg_relax_type", bamgRelaxType_, bamgRelaxType_);
   get_if_present(node, "bamg_relax_order", bamgRelaxOrder_, bamgRelaxOrder_);
+  get_if_present(node, "bamg_seq_threshold", bamgSeqThreshold_, bamgSeqThreshold_);
   get_if_present(node, "bamg_num_sweeps", bamgNumSweeps_, bamgNumSweeps_);
   get_if_present(
     node, "bamg_num_down_sweeps", bamgNumDownSweeps_, bamgNumDownSweeps_);
