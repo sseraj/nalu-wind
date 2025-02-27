@@ -367,6 +367,11 @@ HypreLinearSolverConfig::boomerAMG_precond_config(const YAML::Node& node)
     funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
       Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetSeqThreshold, int_value)));
   }
+  if (node["bamg_restriction"]) {
+    int int_value = node["bamg_restriction"].as<int>();
+    funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
+      Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetRestriction, int_value)));
+  }
 
   paramsPrecond_->set("Preconditioner", Ifpack2::Hypre::BoomerAMG);
   paramsPrecond_->set("SetPreconditioner", true);
