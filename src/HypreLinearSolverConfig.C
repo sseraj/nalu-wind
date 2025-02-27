@@ -192,7 +192,6 @@ HypreLinearSolverConfig::boomerAMG_precond_config(const YAML::Node& node)
   get_if_present(node, "bamg_cycle_type", bamgCycleType_, bamgCycleType_);
   get_if_present(node, "bamg_relax_type", bamgRelaxType_, bamgRelaxType_);
   get_if_present(node, "bamg_relax_order", bamgRelaxOrder_, bamgRelaxOrder_);
-  get_if_present(node, "bamg_seq_threshold", bamgSeqThreshold_, bamgSeqThreshold_);
   get_if_present(node, "bamg_num_sweeps", bamgNumSweeps_, bamgNumSweeps_);
   get_if_present(
     node, "bamg_num_down_sweeps", bamgNumDownSweeps_, bamgNumDownSweeps_);
@@ -228,8 +227,6 @@ HypreLinearSolverConfig::boomerAMG_precond_config(const YAML::Node& node)
     Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetRelaxType, bamgRelaxType_)));
   funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
     Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetRelaxOrder, bamgRelaxOrder_)));
-  funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
-    Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetSeqThreshold, bamgSeqThreshold_)));
 
   if (
     node["bamg_num_down_sweeps"] && node["bamg_num_up_sweeps"] &&
@@ -364,6 +361,11 @@ HypreLinearSolverConfig::boomerAMG_precond_config(const YAML::Node& node)
     double float_value = node["bamg_trunc_factor"].as<double>();
     funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
       Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetTruncFactor, float_value)));
+  }
+  if (node["bamg_seq_threshold"]) {
+    int int_value = node["bamg_seq_threshold"].as<int>();
+    funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
+      Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetSeqThreshold, int_value)));
   }
 
   paramsPrecond_->set("Preconditioner", Ifpack2::Hypre::BoomerAMG);
