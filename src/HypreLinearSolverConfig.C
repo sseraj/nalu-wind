@@ -372,6 +372,11 @@ HypreLinearSolverConfig::boomerAMG_precond_config(const YAML::Node& node)
     funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
       Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetRestriction, int_value)));
   }
+  if (node["bamg_coarse_relax_type"]) {
+    int int_value = node["bamg_coarse_relax_type"].as<int>();
+    funcParams_.push_back(Teuchos::rcp(new Ifpack2::FunctionParameter(
+      Ifpack2::Hypre::Prec, &HYPRE_BoomerAMGSetCycleRelaxType, int_value, 3)));
+  }
 
   paramsPrecond_->set("Preconditioner", Ifpack2::Hypre::BoomerAMG);
   paramsPrecond_->set("SetPreconditioner", true);
