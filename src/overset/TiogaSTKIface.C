@@ -147,7 +147,7 @@ TiogaSTKIface::register_mesh()
 
   auto* nodeVol =
     meta_.get_field(stk::topology::NODE_RANK, "tioga_nodal_volume");
-  comm::scatter_max(realm_.bulk_data(), {nodeVol});
+  sierra::nalu::comm::scatter_max(bulk_, {nodeVol});
   nodeVol->sync_to_host();
 
   for (auto& tb : blocks_) {
